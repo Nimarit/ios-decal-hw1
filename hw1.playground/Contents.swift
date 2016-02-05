@@ -22,33 +22,34 @@ class Words {
 //: ### variables the same type? If not, why?
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: No, the values passed into the "init" function are Optionals(can be Strings or nil) while those set as the instance variables are just Strings.
 
 
 //: ## Q2: Variable Types and Function Types
-    func arePalindromes(words: [String]) -> Bool {
+    class func arePalindromes(words: [String]) -> Bool {
         let reversedWords = words.map() {String($0.characters.reverse())}
-        var numElements = words.count
+        let numElements = words.count
         
-        for let i = 0; i < numElements; i++ {
+        for var i = 0; i < numElements; i++ {
             if words[i] != reversedWords[i] {
                 return false
             }
         }
+        return true
     }
 //: ### Why does the compiler dislike the **for loop**? Fix it.
 //: ### What else is wrong with this function? You may have to refer to (but **not**
 //: ### change) the code at the very bottom. Debug the function.
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: The "let" in the for loop should be a "var" since you're not supposed to update anything you create with "let".  Alternatively, we should use "let" for "numElements" since it never changes.  Also, the function needs a return value if all the words are palindromes.  Finally, the function should be a class function.
 
 
 //: ## Q3: More Functions and Object Initialization
-    class func isAnagram() -> Bool {
-        var countLetters : [Character : Int] //Line X
-        var lenA = self.wordA.characters.count
-        var lenB = self.wordB.characters.count
+    func isAnagram() -> Bool {
+        var countLetters = [Character : Int]() //Line X
+        let lenA = self.wordA.characters.count
+        let lenB = self.wordB.characters.count
         
         if lenA != lenB {
             return false
@@ -75,13 +76,13 @@ class Words {
             }
         }
         
-        for (letter, count) in countLetters {
+        for (_, count) in countLetters {
             if count != 0 {
                 return false
             }
         }
         
-        return nil
+        return true
     }
 //: ### What is the problem with declaring **countLetters** as we do in **Line X**,
 //: ### and then using it in **Line Y**? Fix it (by only changing **Line X**).
@@ -89,7 +90,7 @@ class Words {
 //: ### change) the code at the very bottom. Debug the function.
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: First of all we need to initialize the dictionary and set it equal to countLetters.  Second, "lenA" and "lenB" should be created with "let" since they don't change throughout the function. Third, the function is not a class function, but instead an instance function.
     
     
 }
